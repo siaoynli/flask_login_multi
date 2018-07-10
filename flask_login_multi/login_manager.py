@@ -2,7 +2,7 @@
 created  by  hzwlxy  at 2018/7/5 10:59
 __author__: 西瓜哥
 __QQ__ : 120235331
-__Note__： 
+__Note__：
 """
 from datetime import datetime, timedelta
 from flask import (session, _request_ctx_stack, request, current_app)
@@ -12,12 +12,22 @@ from flask_login.signals import user_accessed, session_protected, user_loaded_fr
 from flask_login.config import COOKIE_NAME, AUTH_HEADER_NAME, COOKIE_DURATION, COOKIE_SECURE, COOKIE_HTTPONLY
 from flask_login.utils import decode_cookie, encode_cookie
 
-from flask_login_multi import _get_user
+from flask_login_multi import _get_user,_user_context_processor
 
 SESSION_KEYS = set(['user_id', 'remember', 'id', 'fresh', 'next'])
 
 
 class LoginManager(_loginManager):
+
+    def init_app(self, app, add_context_processor=True):
+
+        app.login_manager = self
+        app.after_request(self._update_remember_cookie)
+
+        self._login_disabled = app.config.get('LOGIN_DISABLED', False)
+
+        if add_context_processor:
+            app.context_processor(_user_context_processor)
 
     @property
     def _get_endpoint(self):

@@ -2,7 +2,7 @@
 created  by  hzwlxy  at 2018/7/5 13:53
 __author__: 西瓜哥
 __QQ__ : 120235331
-__Note__： 
+__Note__：
 """
 from werkzeug.local import LocalProxy
 from functools import wraps
@@ -99,3 +99,6 @@ def login_required(func):
         return func(*args, **kwargs)
 
     return decorated_view
+
+def _user_context_processor():
+    return dict(current_user=_get_user())
