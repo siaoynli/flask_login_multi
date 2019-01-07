@@ -1,5 +1,6 @@
 # flask_login_multi
-Flask-Login with multiple models: User Model,Admin Model ...
+Flask-Login with multiple models: User Model,Admin Model ...  only for python3.6
+
 
 
 #####1.setup  Flask_Login
