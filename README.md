@@ -1,10 +1,10 @@
 # flask_login_multi
-Flask-Login with multiple models: User Model,Admin Model ...  only for python3.6
+> Flask-Login with multiple models: User Model,Admin Model ...  only for python3.6
 
 
 
-#####1.setup  Flask_Login
-#####2.import flask_login_multi
+##### 1.setup  Flask_Login  
+##### 2.import flask_login_multi  
 ```
 from flask import Flask
 from flask_login_multi.login_manager import LoginManager   
@@ -20,14 +20,14 @@ login_manager.blueprint_login_views = {
 ```
   
 
-#####3.set buleprint
+##### 3.set buleprint  
 ```
 admin_app = Blueprint('admin', __name__, url_prefix="/admin")  
 user_app = Blueprint('user', __name__, url_prefix="/user")  
 ```
 
   
-#####4. model add user_loader
+##### 4. model add user_loader  
 ```
 @login_manager.user_loader
 def load_user(id, endpoint='user'):
@@ -37,7 +37,7 @@ def load_user(id, endpoint='user'):
         return User.query.get(id)
 ```
         
- #####5. admin or user login 
+ ##### 5. admin or user login   
 ```
  from app.libs.flask_login_multi import login_user
  #user
@@ -48,7 +48,7 @@ def load_user(id, endpoint='user'):
  login_user(admin)
  ```
  
- #####6.admin login required
+ ##### 6.admin login required  
  ```
  from app.libs.flask_login_multi import login_required,current_user  
    
