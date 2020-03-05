@@ -16,11 +16,10 @@ current_user = LocalProxy(lambda: _get_user())
 
 
 def _get_endpoint():
-    endpoint = request.endpoint
-    try:
-        return endpoint.split('.')[0]
-    except Exception as e:
+    blueprint = getattr(request, 'blueprint', None)
+    if blueprint is None:
         return 'user'
+    return blueprint
 
 
 def login_user(user, remember=False, duration=None, force=False, fresh=True):

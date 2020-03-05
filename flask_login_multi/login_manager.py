@@ -31,11 +31,10 @@ class LoginManager(_loginManager):
 
     @property
     def _get_endpoint(self):
-        endpoint = request.endpoint
-        try:
-            return endpoint.split('.')[0]
-        except Exception as e:
+        blueprint = getattr(request, 'blueprint', None)
+        if blueprint is None:
             return 'user'
+        return blueprint
 
     def reload_user(self, user=None):
         ctx = _request_ctx_stack.top
