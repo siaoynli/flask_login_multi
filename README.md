@@ -61,4 +61,37 @@ def index():
  
  
 ###  flask login 本身支持多表登录，所以本库不再维护
+
+#### 模型表 admin
+```
+ # get_id 返回str字符串，通过 admin 来做标识
+    def get_id(self):
+        return 'admin.' + str(self.id)
+```
+
+#### 模型表 user
+```
+ # get_id 返回str字符串，通过 user 来做标识
+    def get_id(self):
+        return 'user.' + str(self.id)
+```
+
+#### 验证登录
+```
+@login_manager.user_loader
+def load_user(user_id):
+    temp = user_id.split('.')
+    try:
+        uid = temp[1]
+        if temp[0] == 'admin':
+            return Admin.query.get(uid)
+        elif temp[0] == 'user':
+            return User.query.get(uid)
+        else:
+            return None
+    except IndexError:
+        return None
+```
+
+
 详情 加qq群：184596631
