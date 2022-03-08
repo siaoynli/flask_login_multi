@@ -44,7 +44,7 @@ def load_user(id, endpoint='user'):
  user = User.query.filter_by(name=form.name.data).first()
  login_user(user,remember=True)
  #admin
- user = Admin.query.filter_by(name=form.name.data).first()
+ admin = Admin.query.filter_by(name=form.name.data).first()
  login_user(admin)
  ```
  
